@@ -276,7 +276,7 @@ var Slider = React.createClass({
             {
               transform: [
                 { translateX: thumbLeft },
-                { translateY: -(-trackSize.height + thumbSize.height) / 2 }
+                { translateY: 0 }
               ],
               ...valueVisibleStyle
             }
