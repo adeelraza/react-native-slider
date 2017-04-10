@@ -26,11 +26,13 @@
     "react-addons-shallow-compare": "^15.0.2",
     "style-equal": "^1.0.0"
   },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
   "devDependencies": {
     "babel-eslint": "^3.1.15",
     "eslint": "^0.23.0",
-    "eslint-plugin-react": "^2.5.2",
-    "react": "15.2.1",
-    "react-native": "^0.31.0"
+    "eslint-plugin-react": "^2.5.2"
   }
 }
