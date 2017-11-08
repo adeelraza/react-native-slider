@@ -1,8 +1,8 @@
-'use strict';
+
 
 import React, {
   PureComponent,
-} from "react";
+} from 'react';
 
 import {
   Animated,
@@ -10,12 +10,11 @@ import {
   StyleSheet,
   PanResponder,
   View,
-  Easing
-} from "react-native";
+  Easing,
+  ViewPropTypes
+} from 'react-native';
 
 import PropTypes from 'prop-types';
-
-const styleEqual = require('style-equal');
 
 var TRACK_SIZE = 4;
 var THUMB_SIZE = 20;
@@ -132,17 +131,17 @@ export default class Slider extends PureComponent {
     /**
      * The style applied to the slider container.
      */
-    style: View.propTypes.style,
+    style: (ViewPropTypes || View.propTypes).style,
 
     /**
      * The style applied to the track.
      */
-    trackStyle: View.propTypes.style,
+    trackStyle: (ViewPropTypes || View.propTypes).style,
 
     /**
      * The style applied to the thumb.
      */
-    thumbStyle: View.propTypes.style,
+    thumbStyle: (ViewPropTypes || View.propTypes).style,
 
     /**
      * Sets an image for the thumb.
@@ -155,18 +154,18 @@ export default class Slider extends PureComponent {
     debugTouchArea: PropTypes.bool,
 
     /**
-    * Set to true to animate values with default 'timing' animation type
-    */
+     * Set to true to animate values with default 'timing' animation type
+     */
     animateTransitions : PropTypes.bool,
 
     /**
-    * Custom Animation type. 'spring' or 'timing'.
-    */
+     * Custom Animation type. 'spring' or 'timing'.
+     */
     animationType : PropTypes.oneOf(['spring', 'timing']),
 
     /**
-    * Used to configure the animation parameters.  These are the same parameters in the Animated library.
-    */
+     * Used to configure the animation parameters.  These are the same parameters in the Animated library.
+     */
     animationConfig : PropTypes.object,
   };
 
@@ -234,10 +233,10 @@ export default class Slider extends PureComponent {
     var {value, containerSize, trackSize, thumbSize, allMeasured} = this.state;
     var mainStyles = styles || defaultStyles;
     var thumbLeft = value.interpolate({
-        inputRange: [minimumValue, maximumValue],
-        outputRange: [0, containerSize.width - thumbSize.width],
-        //extrapolate: 'clamp',
-      });
+      inputRange: [minimumValue, maximumValue],
+      outputRange: [0, containerSize.width - thumbSize.width],
+      //extrapolate: 'clamp',
+    });
     var valueVisibleStyle = {};
     if (!allMeasured) {
       valueVisibleStyle.opacity = 0;
@@ -370,7 +369,7 @@ export default class Slider extends PureComponent {
         trackSize: this._trackSize,
         thumbSize: this._thumbSize,
         allMeasured: true,
-      })
+      });
     }
   };
 
@@ -415,11 +414,11 @@ export default class Slider extends PureComponent {
   _setCurrentValueAnimated = (value: number) => {
     var animationType   = this.props.animationType;
     var animationConfig = Object.assign(
-          {},
-          DEFAULT_ANIMATION_CONFIGS[animationType],
-          this.props.animationConfig,
-          {toValue : value}
-        );
+      {},
+      DEFAULT_ANIMATION_CONFIGS[animationType],
+      this.props.animationConfig,
+      {toValue : value}
+    );
 
     Animated[animationType](this.state.value, animationConfig).start();
   };
